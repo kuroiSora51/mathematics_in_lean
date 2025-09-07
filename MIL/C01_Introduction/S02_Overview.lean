@@ -4,14 +4,18 @@ open Nat
 
 -- These are pieces of data.
 #check 2 + 2
+#eval 2+2+9374723
 
 def f (x : ℕ) :=
   x + 3
 
 #check f
 
--- These are propositions, of type `Prop`.
+#eval (λ (x : ℕ) ↦ x*x + 5) 10
+
+-- These are propositions, of type `Prop` or .
 #check 2 + 2 = 4
+-- #check ∀ p : Prop p → p
 
 def FermatLastTheorem :=
   ∀ x y z n : ℕ, n > 2 ∧ x * y * z ≠ 0 → x ^ n + y ^ n ≠ z ^ n
@@ -37,7 +41,7 @@ example : ∀ m n : Nat, Even n → Even (m * n) := fun m n ⟨k, (hk : n = k + 
 example : ∀ m n : Nat, Even n → Even (m * n) :=
 fun m n ⟨k, hk⟩ ↦ ⟨m * k, by rw [hk, mul_add]⟩
 
-example : ∀ m n : Nat, Even n → Even (m * n) := by
+theorem ev : ∀ m n : ℕ, Even n → Even (m * n) := by
   -- Say `m` and `n` are natural numbers, and assume `n = 2 * k`.
   rintro m n ⟨k, hk⟩
   -- We need to prove `m * n` is twice a natural number. Let's show it's twice `m * k`.
@@ -52,4 +56,3 @@ example : ∀ m n : Nat, Even n → Even (m * n) := by
 
 example : ∀ m n : Nat, Even n → Even (m * n) := by
   intros; simp [*, parity_simps]
-
